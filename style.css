@@ -1,0 +1,595 @@
+@import url(https://fonts.googleapis.com/css?family=Inter:100,200,300,regular,500,600,700,800,900);
+
+/* Hide the scrollbar in WebKit browsers (Chrome, Safari) */
+::-webkit-scrollbar {
+  width: 0;
+}
+
+/* Global reset for consistent spacing and box-sizing across all elements */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  /* Ensure the body takes up at least the full viewport height */
+  margin-top: 12px;
+  min-height: 100vh;
+  /* Center content vertically and horizontally */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* Set the default text color and font */
+  color: #2e2e2e;
+  font-family: "Rubik", sans-serif;
+  /* Set a background color */
+  background-color: #fff;
+  /* Control the height behavior */
+  max-height: fit-content;
+}
+
+.wrapper {
+  /* Position relative for absolute child positioning */
+  position: relative;
+  /* Make the wrapper full height of the viewport */
+  height: 100vh;
+  /* Full width of the parent container */
+  width: 100%;
+  /* Hide overflow content */
+  overflow: hidden;
+  /* Add padding to the top and bottom */
+  padding: 30px 0;
+  /* Flex container for child elements */
+  display: flex;
+  /* Ensure the wrapper is above background elements */
+  background-color: #fff;
+  z-index: 1;
+}
+
+@media (min-width: 768px) {
+  .wrapper {
+    /* Fixed size for larger screens */
+    height: 50rem;
+    width: 25rem;
+    /* Add rounded corners */
+    border-radius: 40px;
+    /* Add a solid border */
+    border: 10px solid #2e2e2e;
+  }
+}
+
+.wrapper .screen {
+  /* Ensure the screen takes full width */
+  min-width: 100%;
+  /* Flex item that grows to fill available space */
+  flex: 1;
+  /* Smooth transition for dynamic changes */
+  transition: all 0.3s;
+}
+
+.screen-backdrop {
+  /* Larger than the viewport to create a visual effect */
+  width: 135%;
+  height: 25rem;
+  /* Position the backdrop at the top */
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  /* Round the bottom edges */
+  border-radius: 0 0 50% 50%;
+  /* Background color for the backdrop */
+  background-color: #415a77;
+  /* Place behind other elements */
+  z-index: -1;
+  /* Smooth transition for dynamic changes */
+  transition: all 0.3s;
+}
+
+/* Transition effect for the home screen when showing categories */
+.wrapper.show-category .home-screen {
+  transform: translateX(-100%);
+}
+
+/* Transition effect for the category screen */
+.wrapper.show-category .category-screen {
+  transform: translateX(-100%);
+}
+
+/* Adjust the backdrop during category screen transition */
+.wrapper.show-category .screen-backdrop {
+  transform: translate(-50%, -60%);
+}
+
+.head-wrapper {
+  /* Padding for the header content */
+  padding: 0 30px;
+}
+
+.menu-btn {
+  /* Size and cursor style for the menu button */
+  width: 2rem;
+  cursor: pointer;
+  color: #ffffff;
+}
+
+.welcome {
+  /* Flexbox for aligning content */
+  display: flex;
+  justify-content: space-between;
+  /* Top margin for spacing */
+  margin-top: 20px;
+  color: #ffffff;
+}
+
+.welcome h1 {
+  /* Large font size for the heading */
+  font-size: 3rem;
+  margin: -3px;
+}
+
+.welcome p {
+  /* Font weight and size for the subheading */
+  font-weight: 500;
+  font-size: 1.25rem;
+  margin-top: 5px;
+}
+
+.welcome .img {
+  /* Position the image container */
+  position: relative;
+}
+
+.welcome .img .backdrop {
+  /* Center the circular backdrop behind the image */
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4.2rem;
+  height: 4.2rem;
+  border-radius: 50%;
+  /* Background color for the image backdrop */
+  background-color: #e5e7fd;
+  z-index: -1;
+}
+
+.welcome .img img {
+  /* Size for the welcome image */
+  width: 5rem;
+}
+
+.categories-wrapper {
+  /* Top margin for spacing */
+  margin-top: 1rem;
+  /* Padding for the category wrapper */
+  padding: 0 30px;
+  /* Height to fill remaining space */
+  height: calc(100% - 8rem);
+  padding-bottom: 20px;
+  /* Allow vertical scrolling if content overflows */
+  overflow: auto;
+}
+
+.categories {
+  /* Top padding and gap between categories */
+  padding-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.category {
+  /* Basic styling for category cards */
+  background: #fff;
+  border-radius: 0.5rem;
+  padding: 1.5rem 1rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  /* Drop shadow for depth */
+  box-shadow: 0 10px 20px 5px #00000023;
+  /* Smooth transition for hover effects */
+  transition: all 0.3s;
+}
+
+.category:hover {
+  /* Lift the card slightly and enhance shadow on hover */
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px 5px #00000040;
+}
+
+.category .left {
+  /* Align category content */
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.category .left img {
+  /* Size for the category icons */
+  width: 3rem;
+}
+
+.category .content h1 {
+  /* Font size for category headings */
+  font-size: 1.5rem;
+}
+
+.category .content p {
+  /* Font and opacity for category details */
+  color: #2e2e2e;
+  font-size: 1rem;
+  opacity: 0.6;
+}
+
+.category .options {
+  /* Hide options by default */
+  opacity: 0;
+  visibility: hidden;
+  /* Smooth transition for visibility */
+  transition: all 0.3s;
+}
+
+.category:hover .options {
+  /* Show options on hover */
+  opacity: 1;
+  visibility: visible;
+}
+
+.category .toggle-btn {
+  /* Size and cursor style for the toggle button */
+  width: 2rem;
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+.category .toggle-btn:hover {
+  /* Enhance visibility on hover */
+  opacity: 1;
+}
+
+/* Category Screen */
+.category-screen .head-wrapper {
+  /* Space elements apart and align vertically */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.category-screen .head-wrapper svg {
+  /* Size and cursor style for the SVG icons */
+  width: 2rem;
+  cursor: pointer;
+  color: #fff;
+}
+
+.category-details {
+  /* Padding and layout for category details */
+  padding: 0 30px;
+  margin-top: 7rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.category-details img {
+  /* Size for the category detail icon */
+  width: 4rem;
+}
+
+.category-details .details p {
+  /* Opacity for the task count text */
+  opacity: 0.6;
+}
+
+/* Tasks Section */
+.tasks-wrapper {
+  /* Padding and layout for tasks */
+  padding: 0 30px;
+  margin-top: 1rem;
+  height: calc(100% - 12rem);
+  padding-bottom: 20px;
+  /* Allow vertical scrolling if content overflows */
+  overflow: auto;
+}
+
+.tasks {
+  /* Padding and spacing between tasks */
+  padding-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.task-wrapper {
+  /* Align task content and controls */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.task {
+  /* Layout and spacing for each task */
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  font-size: 0.8rem;
+  font-weight: 500;
+  width: max-content;
+  cursor: pointer;
+  font-size: 1.25rem;
+}
+
+.task input {
+  /* Hide the default checkbox */
+  display: none;
+}
+
+.task .checkmark {
+  /* Size and layout for the custom checkbox */
+  width: 1rem;
+  height: 1rem;
+  border-radius: 2px;
+  border: 1px solid #2e2e2e;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.task .checkmark svg {
+  /* Size and color for the checkmark icon */
+  width: 1rem;
+  color: #2e2e2e;
+  opacity: 0;
+  /* Smooth transition for checkmark appearance */
+  transition: all 0.3s;
+}
+
+.task:hover .checkmark svg {
+  /* Show the checkmark on hover */
+  opacity: 1;
+}
+
+.task .checkmark svg path {
+  /* Thicker stroke for the checkmark */
+  stroke-width: 3;
+}
+
+.task input:checked ~ .checkmark {
+  /* Change background color when checked */
+  background-color: #2e2e2e;
+}
+
+.task input:checked ~ .checkmark svg {
+  /* Show the checkmark when checked */
+  opacity: 1;
+  color: #fff;
+}
+
+.task input:checked ~ p {
+  /* Strike through and fade out completed tasks */
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+.task-wrapper .delete {
+  /* Size and layout for the delete button */
+  min-width: 2rem;
+  height: 2rem;
+  padding: 0.5rem;
+  border-radius: 50%;
+  color: #2e2e2e;
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.031);
+  /* Hide delete button by default */
+  opacity: 0;
+  visibility: hidden;
+  /* Smooth transition for visibility */
+  transition: all 0.3s;
+}
+
+.task-wrapper:hover .delete {
+  /* Show delete button on hover */
+  opacity: 1;
+  visibility: visible;
+}
+
+.task-wrapper .delete:hover {
+  /* Change color and background on hover */
+  color: red;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.no-tasks {
+  /* Center and style the "no tasks" message */
+  margin-top: 5rem;
+  text-align: center;
+  font-size: 1.5rem;
+  opacity: 0.6;
+}
+
+/* Add Task Button */
+.add-task-btn {
+  /* Position the add task button */
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f46036;
+  /* Smooth transition for hover effects */
+  transition: all 0.3s;
+}
+
+.add-task-btn:hover {
+  /* Scale up the button on hover */
+  transform: scale(1.1);
+}
+
+.add-task-btn.active {
+  /* Active state for the button */
+  z-index: 1;
+  bottom: 20rem;
+  transform: rotate(45deg);
+}
+
+.add-task-btn svg {
+  /* Size and color for the add task icon */
+  width: 2rem;
+  color: #fff;
+}
+
+/* Add Task Form */
+.add-task {
+  /* Position and size the add task form */
+  position: absolute;
+  bottom: -100%;
+  left: 0;
+  width: 100%;
+  padding: 20px 30px;
+  /* Smooth transition for form appearance */
+  transition: all 0.3s;
+}
+
+.add-task.active {
+  /* Bring the form into view when active */
+  bottom: 0;
+}
+
+.add-task .heading {
+  /* Style for the form heading */
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.input-group {
+  /* Layout and spacing for input groups */
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.input-group input,
+.input-group label {
+  /* Full width input and label */
+  display: block;
+  width: 100%;
+}
+
+.input-group input,
+.input-group select {
+  /* Styling for form inputs */
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 16px;
+}
+
+.input-group label {
+  /* Styling for labels */
+  width: max-content;
+  padding: 0 5px;
+  margin-top: 5px;
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+.btns {
+  /* Layout for the form buttons */
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.btns button {
+  /* Styling for the form buttons */
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  /* Ensure buttons appear above other elements */
+  z-index: 1;
+  transition: all 0.3s;
+}
+
+button.add-btn {
+  /* Specific styling for the add button */
+  background-color: #ffc600;
+  color: #fff;
+}
+
+.add-task-backdrop {
+  /* Styling for the backdrop behind the add task form */
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 135%;
+  height: 20rem;
+  border-radius: 50% 50% 0 0;
+  background-color: #fff;
+}
+
+.black-backdrop {
+  /* Styling for the overlay when the form is active */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(5px);
+  background-color: #00000023;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s;
+}
+
+.black-backdrop.active {
+  /* Show the overlay when the form is active */
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Background Gradient Covering the Entire Viewport */
+.background-tester {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh; /* Full height of the viewport */
+  width: 100vw; /* Full width of the viewport */
+  z-index: -999; /* Keep it behind content but above other backgrounds if necessary */
+  pointer-events: none; /* Ensure it doesn't interfere with interactions */
+  background: linear-gradient(
+    to bottom,
+    #ff7e5f 50%,
+    #feb47b 50%
+  ); /* Two gradients, splitting top and bottom */
+}
+
+/* Footer Styling */
+footer {
+  height: 0; /* Minimal footer height */
+  margin: 0.1rem; /* Slight margin */
+}
+
+footer p {
+  /* Footer text styling */
+  margin-top: 12px;
+  text-align: center;
+  padding-bottom: 12px;
+  font-weight: 400;
+  font-size: 1.5rem;
+  color: #fff;
+}

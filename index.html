@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Character encoding set to UTF-8 for supporting various characters -->
+    <meta charset="UTF-8" />
+
+    <!-- Responsive design: ensures the webpage scales correctly on different devices -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Sets the color of the tile on Windows 8/10 start screen -->
+    <meta name="msapplication-TileColor" content="#2d89ef" />
+
+    <!-- Sets the theme color of the address bar in mobile browsers -->
+    <meta name="theme-color" content="#ffffff" />
+
+    <!-- Link to the external stylesheet -->
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- Title of the webpage displayed in the browser tab -->
+    <title>Things To Do</title>
+
+    <!-- Meta description for SEO, helps search engines understand the content of the page -->
+    <meta
+      name="description"
+      content="Manage your tasks effortlessly with our JavaScript Todos List App. Organize, prioritize, and track your to-dos seamlessly using this user-friendly web application."
+    />
+
+    <!-- Meta keywords for SEO, describes the content and purpose of the page -->
+    <meta
+      name="keywords"
+      content="JavaScript Todos List App, Task Management, To-Do List Web App, Organize Tasks, Track To-Dos, Simple Task Manager, Productivity Tool, User-Friendly Interface, Web-based Task Organizer, JavaScript Task Tracker"
+    />
+  </head>
+  <body>
+    <!-- Main wrapper for the app content -->
+    <div class="wrapper">
+      <!-- Background screen element for visual effect -->
+      <div class="screen-backdrop"></div>
+
+      <!-- Home screen section displaying the welcome message and task summary -->
+      <div class="home-screen screen">
+        <!-- Header section containing menu button and welcome message -->
+        <div class="head-wrapper">
+          <!-- Menu button with an SVG icon -->
+          <div class="menu-btn">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="w-6 h-6"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12"
+              />
+            </svg>
+          </div>
+
+          <!-- Welcome message showing the number of tasks for the day -->
+          <div class="welcome">
+            <div class="content">
+              <h1>Hello,</h1>
+              <p>Today you have <span id="total-tasks">5</span> tasks</p>
+            </div>
+            <!-- User's profile image with a backdrop -->
+            <div class="img">
+              <div class="backdrop"></div>
+              <img src="images/person.png" alt="Image of a person" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Categories section containing a list of task categories -->
+        <div class="categories-wrapper">
+          <div class="categories">
+            <!-- Single category item for Personal tasks -->
+            <div class="category">
+              <div class="left">
+                <!-- Category icon -->
+                <img src="images/boy.png" alt="sun" />
+                <div class="content">
+                  <!-- Category title and task count -->
+                  <h1>Personal</h1>
+                  <p>5 Tasks</p>
+                </div>
+              </div>
+              <!-- Options button for category actions -->
+              <div class="options">
+                <div class="toggle-btn">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="w-6 h-6"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z"
+                    />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Category screen section displaying tasks under a specific category -->
+      <div class="category-screen screen">
+        <!-- Header section with back button and options -->
+        <div class="head-wrapper">
+          <!-- Back button to return to the home screen -->
+          <div class="back-btn">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="w-6 h-6"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18"
+              />
+            </svg>
+          </div>
+
+          <!-- Options button for additional actions -->
+          <div class="options">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="w-6 h-6"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z"
+              />
+            </svg>
+          </div>
+        </div>
+
+        <!-- Section displaying the category details like image and title -->
+        <div class="category-details">
+          <!-- Category image -->
+          <img src="images/boy.png" alt="" id="category-img" />
+          <div class="details">
+            <!-- Number of tasks and category title -->
+            <p id="num-tasks">8 tasks</p>
+            <h1 id="category-title">Personal</h1>
+          </div>
+        </div>
+
+        <!-- Wrapper for the task list -->
+        <div class="tasks-wrapper">
+          <div class="tasks">
+            <!-- Single task item with a checkbox and delete option -->
+            <div class="task-wrapper">
+              <label for="task" class="task">
+                <!-- Checkbox for task completion -->
+                <input type="checkbox" name="task" id="task" />
+                <span class="checkmark"
+                  ><svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="w-6 h-6"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M4.5 12.75l6 6 9-13.5"
+                    />
+                  </svg>
+                </span>
+                <!-- Task description -->
+                <p>Buy a new car lorem</p>
+              </label>
+              <!-- Delete button for removing the task -->
+              <div class="delete">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="w-6 h-6"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Floating button to add a new task -->
+      <div class="add-task-btn">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-6 h-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M12 4.5v15m7.5-7.5h-15"
+          />
+        </svg>
+      </div>
+
+      <!-- Dark backdrop for the add task modal -->
+      <div class="black-backdrop"></div>
+
+      <!-- Modal for adding a new task -->
+      <div class="add-task">
+        <!-- Background design for the add task form -->
+        <div class="add-task-backdrop"></div>
+
+        <!-- Heading for the add task form -->
+        <h1 class="heading">Add Task</h1>
+
+        <!-- Input field for task description -->
+        <div class="input-group">
+          <label for="task-input"> Task </label>
+          <input type="text" id="task-input" required />
+        </div>
+
+        <!-- Dropdown for selecting a category -->
+        <div class="input-group">
+          <label for="category-select"> Category </label>
+          <select id="category-select"></select>
+        </div>
+
+        <!-- Buttons to cancel or add the task -->
+        <div class="btns">
+          <button class="cancel-btn">Cancel</button>
+          <button class="add-btn">Add</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Link to the external JavaScript file -->
+    <script src="script.js"></script>
+
+    <!-- Background gradient element -->
+    <div class="background-tester"></div>
+
+    <!-- Footer with copyright information -->
+    <footer>
+      <p>Copyright &#169; 2024 Kurtis Ton. All Rights Reserved.</p>
+    </footer>
+  </body>
+</html>
